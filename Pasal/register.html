@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff00cc, #3333ff);
+            overflow: hidden;
+        }
+
+        .container {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .container button {
+            padding: 10px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .container button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .container .error {
+            color: #ff4d4d;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            text-align: center;
+        }
+
+        .popup h3 {
+            margin: 0 0 20px;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #45a049;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form method="POST" action="register.php" id="registerForm">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" id="confirm_password" required>
+
+            <button type="submit">Register</button>
+            <p class="error" id="error"></p>
+        </form>
+    </div>
+
+    <div class="overlay"></div>
+    <div class="popup" id="popup">
+        <h3>Registration Successful!</h3>
+        <button id="closePopup">Proceed to Login</button>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirm_password').value.trim();
+            const errorElement = document.getElementById('error');
+
+            if (password !== confirmPassword) {
+                errorElement.textContent = "Passwords do not match.";
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                errorElement.textContent = "Please enter a valid email address.";
+                return;
+            }
+
+            errorElement.textContent = '';
+            document.querySelector('.overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        });
+
+        document.getElementById('closePopup').addEventListener('click', function() {
+            document.querySelector('.overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+            window.location.href = "login.html";  // Redirect to the login page after registration
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            overflow: hidden;
+        }
+
+        .container {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .container button {
+            padding: 10px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .container button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .container .error {
+            color: #ff4d4d;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .container a {
+            color: #ffffff;
+            text-decoration: underline;
+            font-weight: 400;
+            margin-top: 10px;
+            display: block;
+            font-size: 14px;
+        }
+
+        .container a:hover {
+            color: #ff4d4d;
+        }
+
+        .forgot-password,
+        .create-account {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST" action="login.php">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+
+            <button type="submit">Login</button>
+
+            <?php if ($error): ?>
+                <p class="error"><?php echo $error; ?></p>
+            <?php endif; ?>
+        </form>
+
+        <div class="forgot-password">
+            <a href="forgot_password.php">Forgot Password?</a>
+        </div>
+        <div class="create-account">
+            <a href="register.html">Create an Account</a>
+        </div>
+    </div>
+</body>
+</html>
